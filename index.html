@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PediatriCare+ | Ultra Integrated Clinic</title>
+    <title>PediatriCare+ | Smart Pediatric Center</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
     <style>
@@ -29,7 +30,7 @@
 
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-        /* --- Navigation --- */
+        /* Navigation */
         nav {
             position: fixed; width: 90%; left: 5%; top: 20px;
             padding: 15px 30px; display: flex; justify-content: space-between;
@@ -39,27 +40,18 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.05);
             box-sizing: border-box;
         }
-        .logo { font-weight: 800; font-size: 1.5rem; color: var(--p-blue); text-transform: uppercase; cursor: pointer; }
+        .logo { font-weight: 800; font-size: 1.2rem; color: var(--p-blue); text-transform: uppercase; cursor: pointer; }
 
-        /* --- Layout --- */
         .section {
             min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
             padding: 120px 10% 80px; box-sizing: border-box;
         }
         
         .hero-grid { display: grid; grid-template-columns: 1fr; width: 100%; gap: 50px; align-items: center; }
-        @media (min-width: 992px) { .hero-grid { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 992px) { .hero-grid { grid-template-columns: 1fr 1.2fr; } }
         
-        #model-container { width: 100%; height: 450px; background: rgba(255,255,255,0.2); border-radius: 40px; cursor: grab; }
+        #model-container { width: 100%; height: 450px; border-radius: 40px; cursor: grab; }
 
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; width: 100%; }
-        .glass-card { 
-            background: var(--glass); padding: 40px; border-radius: 30px; 
-            border: 1px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center; transition: 0.3s;
-        }
-
-        /* --- Interactive UI --- */
         .btn {
             background: linear-gradient(135deg, var(--p-blue), #0984e3);
             color: white; border: none; padding: 18px 35px; border-radius: 15px;
@@ -69,10 +61,10 @@
         .btn-white { background: white; color: var(--dark); border: 1px solid #ddd; }
         .btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(9, 132, 227, 0.2); }
 
-        .booking-card { background: var(--glass); padding: 50px; border-radius: 40px; width: 100%; max-width: 800px; backdrop-filter: blur(20px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
-        input, select { width: 100%; padding: 16px; margin: 10px 0 20px; border-radius: 12px; border: 1px solid #dfe6e9; background: white; box-sizing: border-box; }
+        .booking-card { background: var(--glass); padding: 50px; border-radius: 40px; width: 100%; max-width: 800px; backdrop-filter: blur(20px); box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+        input, select { width: 100%; padding: 16px; margin: 10px 0 20px; border-radius: 12px; border: 1px solid #dfe6e9; background: white; box-sizing: border-box; font-family: inherit; }
 
-        /* SMS Modal Simulation */
+        /* SMS Modal */
         #sms-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); z-index: 9999; display: none;
@@ -81,7 +73,6 @@
         .phone-frame {
             background: #000; width: 300px; height: 550px; border: 10px solid #222;
             border-radius: 45px; padding: 20px; position: relative; color: white;
-            box-shadow: 0 0 50px rgba(116, 185, 255, 0.4);
         }
         .sms-bubble {
             background: #e9e9eb; color: black; padding: 20px;
@@ -97,7 +88,8 @@
 
     <nav>
         <div class="logo" onclick="gsap.to(window, {duration: 1, scrollTo: 0})">PEDIATRICARE+</div>
-        <div style="display:flex; gap:10px;">
+        <div style="display:flex; gap:20px; align-items:center;">
+            <a href="javascript:void(0)" style="text-decoration:none; color:var(--dark); font-weight:600; font-size:0.8rem;" onclick="gsap.to(window, {duration: 1, scrollTo: '#specialist'})">MEET THE DOCTOR</a>
             <button class="btn" style="padding: 10px 20px; font-size: 0.8rem;" onclick="gsap.to(window, {duration: 1, scrollTo: '#book'})">Book Now</button>
         </div>
     </nav>
@@ -106,102 +98,84 @@
         <div class="hero-grid">
             <div class="hero-content">
                 <h1 style="font-size: 3.5rem; line-height:1.1; margin:0;">Gentle Care,<br><span style="color:var(--p-pink)">Happy Hearts.</span></h1>
-                <p style="font-size: 1.2rem; margin: 25px 0; opacity: 0.8;">Expert pediatric services with real-time appointment tracking and a friendly 3D atmosphere.</p>
+                <p style="font-size: 1.2rem; margin: 25px 0; opacity: 0.8;">Advanced pediatric care with a focus on comfort and connection. Your child's smile is our priority.</p>
                 <div style="display:flex; gap: 15px;">
-                    <button class="btn" onclick="gsap.to(window, {duration: 1, scrollTo: '#about'})">Our Services</button>
-                    <button class="btn btn-white" onclick="gsap.to(window, {duration: 1, scrollTo: '#reviews'})">Reviews</button>
+                    <button class="btn" onclick="gsap.to(window, {duration: 1, scrollTo: '#specialist'})">Learn More</button>
+                    <button class="btn btn-white" onclick="gsap.to(window, {duration: 1, scrollTo: '#book'})">Book Visit</button>
                 </div>
             </div>
             <div id="model-container"></div>
         </div>
     </section>
 
-    <section class="section" id="about">
-        <h2 style="font-size: 3rem; color: #0984e3; margin-bottom: 40px;">Why Trust Us?</h2>
-        <div class="card-grid">
-            <div class="glass-card"><h3>24/7 Support</h3><p>Direct communication for emergency pediatric queries.</p></div>
-            <div class="glass-card"><h3>Smart Sync</h3><p>Your appointment ID is instantly synced with our doctors.</p></div>
-            <div class="glass-card"><h3>Painless Tech</h3><p>Making checkups fun with interactive 3D tools.</p></div>
-        </div>
-    </section>
-<section class="section" id="specialist" style="background: white;">
-    <div class="hero-grid" style="align-items: center;">
-        <div style="position: relative; display: flex; justify-content: center;">
-            <div style="width: 300px; height: 300px; border-radius: 50%; overflow: hidden; border: 8px solid var(--p-blue); box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
-                <img src="dodtor.jpg" alt="Doctor Name" style="width: 100%; height: 100%; object-fit: cover;">
+    <section class="section" id="specialist" style="background: rgba(255,255,255,0.5);">
+        <div class="hero-grid">
+            <div style="display:flex; justify-content:center; position:relative;">
+                <div style="width: 320px; height: 320px; border-radius: 50%; overflow: hidden; border: 8px solid white; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+                    <img src="doctor.jpg" alt="Your Name" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div style="position:absolute; bottom:0; background:var(--p-blue); color:white; padding:10px 25px; border-radius:30px; font-weight:800; transform:translateY(50%);">CHIEF SPECIALIST</div>
             </div>
-            <div style="position: absolute; bottom: 10px; right: 20%; background: var(--p-pink); color: white; padding: 10px 20px; border-radius: 20px; font-weight: bold; font-size: 0.8rem;">
-                Lead Pediatrician
+            <div class="hero-content">
+                <h2 style="font-size: 3rem; margin:0; color:var(--p-blue);">Dr. VAVIT GODARA   <h4 style="margin: 10px 0; color:var(--p-pink);">Board Certified Pediatrician</h4>
+                <p style="font-size: 1.1rem; line-height:1.8; color:var(--dark);">
+                    "Welcome to PediatriCare+. I believe that every child deserves a healthcare experience that is as playful as it is professional. Using modern technology, we ensure your visits are stress-free and completely transparent."
+                </p>
+                <button class="btn btn-white" onclick="gsap.to(window, {duration: 1, scrollTo: '#book'})">Consultation Details</button>
             </div>
-        </div>
-
-        <div class="hero-content">
-            <h2 style="font-size: 2.5rem; color: var(--dark); margin: 0;">Dr. Vavit godara </h2>
-            <p style="font-size: 1.1rem; line-height: 1.6; margin: 20px 0;">
-                With over 10 years of experience, I am dedicated to providing the most advanced and compassionate care for your little ones. We believe technology and play are the best medicine.
-            </p>
-            <button class="btn btn-white" onclick="gsap.to(window, {duration: 1, scrollTo: '#book'})">Ask a Question</button>
-        </div>
-    </div>
-</section>
-    <section class="section" id="reviews" style="background: rgba(255,175,204,0.05);">
-        <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Parent Feedback</h2>
-        <div class="card-grid">
-            <div class="glass-card">"The SMS ID made check-in so fast. My baby loved the teddy!"<br><br><b>- Jessica W.</b></div>
-            <div class="glass-card">"Professional, modern, and incredibly clean environment."<br><br><b>- Robert K.</b></div>
         </div>
     </section>
 
     <section class="section" id="book">
         <div class="booking-card">
-            <h2 style="text-align:center; font-size: 2.2rem; margin-top:0;">Schedule Appointment</h2>
+            <h2 style="text-align:center; font-size: 2.5rem; margin-top:0; color:var(--p-blue);">Secure Your Visit</h2>
             <form id="masterForm">
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <input type="text" id="parentName" placeholder="Parent Name" required>
                     <input type="text" id="babyName" placeholder="Baby's Name" required>
                 </div>
-                <input type="tel" id="userPhone" placeholder="Mobile Number" required>
+                <input type="tel" id="userPhone" placeholder="Mobile Number (for SMS ID)" required>
                 <select id="userService">
-                    <option>General Checkup</option>
-                    <option>Vaccination Plan</option>
-                    <option>Developmental Screening</option>
+                    <option>General Well-Child Visit</option>
+                    <option>Newborn Consultation</option>
+                    <option>Vaccination / Immunization</option>
                 </select>
                 <input type="date" required>
-                <button type="submit" class="btn" style="width:100%">Confirm & Generate ID</button>
+                <button type="submit" class="btn" style="width:100%">Confirm & Generate SMS ID</button>
             </form>
         </div>
     </section>
 
     <div id="sms-modal">
         <div class="phone-frame">
-            <div style="text-align:center; font-size:0.7rem; opacity:0.4; margin-top:10px;">iMessage • Just Now</div>
+            <div style="text-align:center; font-size:0.7rem; opacity:0.4; margin-top:15px;">iMessage • Today</div>
             <div class="sms-bubble">
                 <b>PEDIA-CARE+ CONFIRMED</b><br><br>
                 Hi <span id="sms-parent"></span>, your visit for <span id="sms-baby"></span> is confirmed.<br><br>
                 <b>APPT ID: <span id="sms-id" style="color:#0984e3; font-weight:800;"></span></b><br>
-                Show this on arrival.
+                Please show this at reception.
             </div>
-            <button class="btn" style="width:100%; margin-top:160px;" onclick="location.reload()">Great, Thanks!</button>
+            <button class="btn" style="width:100%; margin-top:160px;" onclick="location.reload()">Back to Home</button>
         </div>
     </div>
 
     <script>
-        // --- CONFIG ---
+        // --- 1. CONFIG ---
         const SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
 
-        // --- 1. 3D PARTICLE ENGINE ---
+        // --- 2. 3D BACKGROUND (STARS) ---
         const bgScene = new THREE.Scene();
         const bgCam = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
         const bgRenderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
         bgRenderer.setSize(window.innerWidth, window.innerHeight);
         const pGeom = new THREE.BufferGeometry();
-        const pPos = new Float32Array(1500 * 3);
-        for(let i=0; i<4500; i++) pPos[i] = (Math.random() - 0.5) * 10;
+        const pPos = new Float32Array(1000 * 3);
+        for(let i=0; i<3000; i++) pPos[i] = (Math.random() - 0.5) * 10;
         pGeom.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const pMesh = new THREE.Points(pGeom, new THREE.PointsMaterial({size: 0.012, color: '#74b9ff'}));
+        const pMesh = new THREE.Points(pGeom, new THREE.PointsMaterial({size: 0.01, color: '#74b9ff'}));
         bgScene.add(pMesh); bgCam.position.z = 3;
 
-        // --- 2. 3D CHARACTER ENGINE ---
+        // --- 3. 3D CHARACTER ---
         const container = document.getElementById('model-container');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(45, container.clientWidth/container.clientHeight, 0.1, 1000);
@@ -212,46 +186,64 @@
 
         const char = new THREE.Group();
         const fur = new THREE.MeshStandardMaterial({ color: 0xffafcc, roughness: 0.6 });
-        char.add(new THREE.Mesh(new THREE.SphereGeometry(2, 32, 32), fur));
+        const body = new THREE.Mesh(new THREE.SphereGeometry(2, 32, 32), fur);
         const head = new THREE.Mesh(new THREE.SphereGeometry(1.4, 32, 32), fur);
-        head.position.y = 2.2; char.add(head);
+        head.position.y = 2.2; char.add(body, head);
         scene.add(char, new THREE.DirectionalLight(0xffffff, 1.5), new THREE.AmbientLight(0xffffff, 0.5));
+
+        // --- 4. SCROLL MAGIC (Waving Effect) ---
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.to(char.rotation, {
+            y: Math.PI * 1.8, // Turns towards the specialist
+            scrollTrigger: {
+                trigger: "#specialist",
+                start: "top bottom",
+                end: "top center",
+                scrub: 1
+            }
+        });
 
         function animate() {
             requestAnimationFrame(animate);
-            char.rotation.y += 0.01;
-            char.position.y = Math.sin(Date.now()*0.002)*0.2;
+            char.position.y = Math.sin(Date.now()*0.002)*0.25; // Hovering
             pMesh.rotation.y += 0.0005;
             renderer.render(scene, camera);
             bgRenderer.render(bgScene, bgCam);
         }
         animate();
 
-        // --- 3. SMART ID & FORM LOGIC ---
+        // --- 5. BOOKING LOGIC ---
         document.getElementById('masterForm').onsubmit = async (e) => {
             e.preventDefault();
             const apptID = "PED-" + Math.floor(1000 + Math.random() * 9000);
             const parent = document.getElementById('parentName').value;
             const baby = document.getElementById('babyName').value;
 
-            // Display in Simulation
+            // Show SMS Animation
             document.getElementById('sms-parent').innerText = parent;
             document.getElementById('sms-baby').innerText = baby;
             document.getElementById('sms-id').innerText = apptID;
             document.getElementById('sms-modal').style.display = 'flex';
 
-            const payload = { id: apptID, parent, baby, phone: document.getElementById('userPhone').value, service: document.getElementById('userService').value, date: e.target.elements[4].value };
+            const payload = { 
+                id: apptID, 
+                parent, 
+                baby, 
+                phone: document.getElementById('userPhone').value, 
+                service: document.getElementById('userService').value, 
+                date: e.target.elements[4].value 
+            };
             
             try { await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) }); } 
-            catch(err) { console.warn("Saving locally only."); }
+            catch(err) { console.warn("Google Sync offline."); }
         };
 
-        window.onresize = () => {
+        window.addEventListener('resize', () => {
             bgCam.aspect = window.innerWidth/window.innerHeight; bgCam.updateProjectionMatrix();
             bgRenderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = container.clientWidth/container.clientHeight; camera.updateProjectionMatrix();
             renderer.setSize(container.clientWidth, container.clientHeight);
-        };
+        });
     </script>
 </body>
-</html>
+    </html>
